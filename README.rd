@@ -10,4 +10,5 @@
 
 Nous avons défini ensuite les adresses des vms en 10.1.1.2/24 et à 10.1.2.2/30 dans le dossier de configuration puis nous tapons les
 commandes suivantes :
-
+**ifdown 'plus le nom de ta carte réseau'** : cette commande permet d'éteindre la carte
+**ifup 'plus le nom de ta carte réseaux'** : cette commande permet d'allumer la carte
