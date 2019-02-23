@@ -52,7 +52,7 @@ ip neigh show permet d'afficher ta table arp
 elle affiche les adresses que tu as dans ton réseaux
 ip neigh flush all permet de vider ta table arp et nous indique failed
 
-Si nous refesons un ping d'une des routes nous avons plus le mot failed et nous notre table ARP plein
+Si nous refesons un ping d'une des routes nous avons plus le mot failed et notre table ARP est pleine
 avec toutes les données de la carte 
 
 Dans les trames récuperer dans le TCPdump nous avons eut commande ARP et le reste c'est les commandes
@@ -62,5 +62,6 @@ ICMP c'est les différents ping
 **II. Communication simple entre deux machines:**
 
 **2. Basics**
-nous vidons la table arp et qund nous pignons la vm que nous venons de créer alors la table ARP vient
-de la rajouter dans sa table
+
+Nous vidons la table arp et quand nous pigons la vm que nous venons de créer alors la table ARP vient
+de la rajouter dans sa table Arp.
