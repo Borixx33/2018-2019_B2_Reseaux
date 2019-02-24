@@ -55,9 +55,13 @@ ip neigh flush all permet de vider ta table arp et nous indique failed
 Si nous refesons un ping d'une des routes nous avons plus le mot failed et notre table ARP est pleine
 avec toutes les données de la carte 
 
-Dans les trames récuperer dans le TCPdump nous avons eut commande ARP et le reste c'est les commandes
-ICMP c'est les différents ping
+Puis nous allons taper la commande tcpdump -i enp0s9 -w ping.pcap ce qui permet de faire les requêtes ping puis nous allon sur wireshark et nous pouvons voir grâce a se logiciel les différentes protocol pour ping 
 
+la ligne 1 par exemple va être une requete ARP vers l'ip 10.1.2.1 pour savoir son adresse Mac puisque comme je l'ai ds juste avant nous avons vider la table arp 
+
+Puis, la ligne 2 c'est l'adresse 10.1.2.1 qui donne son adresse mac
+
+et de la ligne 3 à 10 c'est les requetes ping
 **Capture réseau**
 **II. Communication simple entre deux machines:**
 
@@ -65,3 +69,64 @@ ICMP c'est les différents ping
 
 Nous vidons la table arp et quand nous pigons la vm que nous venons de créer alors la table ARP vient
 de la rajouter dans sa table Arp.
+
+Puis nous allons faire de nouveau une capture réseaux 
+sur ssh1 client 1 et sur ssh2 client 1 du coup sur ssh1 client 1 nous tapons **sudo tcpdump -i enp0s8 -w ping-2.pcap** et sur ssh2 client 1 nous mettons **ping -c 4 10.1.1.3**
+
+
+
+On va récuperer le fichier ping-2.pcap et nous allons le mettre sur wireshark pour voir les différents protocole et ce qu ça a donée et ça a fait la même chose que ce que nous avons fait toute à l'heure c'est à dire :
+
+la ligne 1 par exemple va être une requete ARP vers l'ip 10.1.2.1 pour savoir son adresse Mac puisque comme je l'ai ds juste avant nous avons vider la table arp 
+
+Puis, la ligne 2 c'est l'adresse 10.1.2.1 qui donne son adresse mac
+
+et de la ligne 3 à 10 c'est les requetes ping
+
+**UDP**
+
+sur le client 1 nous ouvront le port 8888 avec la commande suivante :
+**firewall-cmd --add-port=8888/udp --permanent** et aussi **firewall-cmd --reload**, pour relancer le firewall
+
+Puis nous allons donc écouter sur le port que nous venons d'ouvrir avec netcat en fesant la commandes suivantes:
+**nc -u -l 8888**
+
+Sur le client 2 nous tapons :
+**nc -u 10.1.1.2 8888**
+Et cela permet de communiquer entre les deux vm en direct
+
+Sur le client 1 et 2 nous tapons **ss -unp** sur le client 1 ça nous montre que le port 8888 est ouvert et communique avec la deuxieme vm mets avec un autre port puisque c'est la vm qui la ouvert toute seule avec c'est port qui sont libre et sur le client 2 la même chose nous voyon le port qui a était ouvert et qui communique avec le port 8888.
+
+Nous fesons une nouvelle fois un tcpdum -i enp0s8 -w nc-udp.pcap et cette fois si nous voyons plusieur packets et ce n'ets pas le même protocole nous voyons des transmission de données qui on était faites entre le client et le serveur par le protocol UDP.
+
+**TCP**
+
+sur le client 1 nous ouvront le port 8888 avec la commande suivante :
+**firewall-cmd --add-port=8888/tcp --permanent** et aussi **firewall-cmd --reload**, pour relancer le firewall
+
+Puis nous allons donc écouter sur le port que nous venons d'ouvrir avec netcat en fesant la commandes suivantes:
+**nc -u -l 8888**
+
+Sur le client 2 nous tapons :
+**nc -u 10.1.1.2 8888**
+
+Sur le client 1 et 2 nous tapons **ss -unp** est nous remarquons que ça nous a créer deux routes supplémentaires .
+
+Puis nous allons de nouveaux faire une capure réseau avec la commande suivantes  tcpdum -i enp0s8 -w nc-tcp.pcap
+
+Ici nous avons des requêtes TCP qui passe par un tunnel cette fois-ci et nous avons un 'accusé de réception' contrairement au protocole UDP
+
+**Firewall**
+
+Sur le client 1 nous allons fermer le port 8888 qui nous a été utile pour faire la communication UDP avec les commande suivante 
+**firewall-cmd --remove-port=8888/udp --permanent** et **firewall-cmd --reload**
+
+Puis nous lançons netcat pour écouter sur le port TCP 8888 **nc -u -i 8888** et sur le client 2 nous tapons **nc -u 10.1.1.2 8888**
+
+Nous fesons une capture réseaux sur le client 1 et nous le mettons sur wireshark et nous constantons que sur la ligne 10 ça nous indique que la destination est inaccesible mets puisque nous avons fermer le port UDP cela est tous simplement normal.
+
+**III. Routage statique simple**
+
+Sur le client 1 nous allons passer notre client 1 en routeur en tapant **sysctl -w net.ipv4.ip_forward=1** et sur le client 2 nous allons rajouter sur net 2 une route statique nous allons dans le dossier **nano /etc/sysconfig/network-scripts/route-enp0s9** et nous rajoutons la route suivante **10.1.2.0/30 via 10.1.1.2 dev enp0s9**
+
+Nous allons ping l'hôte dans net2 et nous fesons un traceroute, pour voir le chemin qui a parcouru en tapent **traceroute 10.1.2.1** et nous voyons bien ligne 1 qui passe par la gateway (10.0.2.2) et ensuite par le net 2 (10.1.2.1).
