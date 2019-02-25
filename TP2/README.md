@@ -8,15 +8,15 @@ Avant toute chose nous avons activer l'IPv4 des deux routeurs avec la commande s
     -```sudo sysctl -w net.ipv4.conf.all.forwarding=1```
 
 Puis nous avons fait les diffèrentes routes dans un fichier que nous allons créer et qui se situe :
-    -``/ect/sysconfig/network-script/route-enp0s8``
+    - ``/ect/sysconfig/network-script/route-enp0s8``
     
 Route client 1 :
-    -``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
+    - ``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
 Route serveur 1 :
-    -``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
+    - ``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
 Route routeur 1 :
-    -``10.2.2.0/24 via 10.2.12.3 dev enp0s8``
+    - ``10.2.2.0/24 via 10.2.12.3 dev enp0s8``
 Route routeur 2 :
-    -``10.2.1.0/24 via 10.2.12.2 dev enp0s8``
+    - ``10.2.1.0/24 via 10.2.12.2 dev enp0s8``
 
 
