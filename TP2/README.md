@@ -1,5 +1,7 @@
 **B2 Réseau 2018 - TP2**
+
 **1. Création des VMs et adressage IP**
+
 Nous fesons au début toute les configurations des différentes cartes que nous avons mit au serveur, routeur et client
 
 **2. Routage statique**
@@ -15,7 +17,7 @@ Puis nous avons fait les diffèrentes routes dans un fichier que nous allons cr�
 Route client 1 :
     
    * ``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
-   
+
 Route serveur 1 :
     
    * ``10.2.2.0/24 via 10.2.1.254 dev enp0s8``
