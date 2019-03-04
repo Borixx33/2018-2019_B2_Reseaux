@@ -1,4 +1,4 @@
-**B2 Réseau 2018 - TP2**
+## B2 Réseau 2018 - TP2
 
 **1. Création des VMs et adressage IP**
 
@@ -30,4 +30,5 @@ Route routeur 2 :
     
    * ``10.2.1.0/24 via 10.2.12.2 dev enp0s8``
 
+**3. Visualisation du routage avec wireshark**
 
