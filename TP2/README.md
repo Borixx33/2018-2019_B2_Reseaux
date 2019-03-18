@@ -90,6 +90,7 @@ Pour savoir si nous avons bien configurer le server DHCP nous mettons en place u
    * Puis nous ouvrons le port qui est utilisé par NTP + on le reload :
 
    ``sudo firewall-cmd --add-port=123/udp --permanent``
+
    ``sudo firewall-cmd --reload``
 
    * On install chrony, puis on le démarre 
@@ -98,6 +99,7 @@ Pour savoir si nous avons bien configurer le server DHCP nous mettons en place u
 
    * Router 1 avec la commande chronyc sources:
 
+```
 210 Number of sources = 4
 MS Name/IP address         Stratum Poll Reach LastRx Last sample               
 ===============================================================================
@@ -121,11 +123,13 @@ Root delay      : 0.035957448 seconds
 Root dispersion : 0.001017101 seconds
 Update interval : 64.9 seconds
 Leap status     : Normal
+```
 
 **dhcp-server:**
 
    * commande chronyc sources:
 
+```
 210 Number of sources = 1
 MS Name/IP address         Stratum Poll Reach LastRx Last sample               
 ===============================================================================
@@ -146,6 +150,7 @@ Root delay      : 0.000000000 seconds
 Root dispersion : 0.000000000 seconds
 Update interval : 0.0 seconds
 Leap status     : Normal
+```
 
 **server 1**
 
@@ -175,7 +180,7 @@ default via 10.2.2.254 dev enp0s8 proto static metric 100
 Maintenant nous sommes content internet et sur le serveur 1
 
 
-**4.Web server**
+**4. Web server**
 
    * On vérifie que le serveur est bien lancé avec la commande 
    ``sudo ss -altnp4``
