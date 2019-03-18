@@ -72,16 +72,16 @@ Pour vérifier que nos interfaces on bien été configurer nous les pignons :
 
 vm1 vers vm3
 
-![alt text](/TP3/image/ping_vm3.png)
+![alt text](/TP3/image/ping_vm3.PNG)
 
 vm3 vers vm1
 
-![alt text](/TP3/image/ping_vm1.png)
+![alt text](/TP3/image/ping_vm1.PNG)
 
 Mais nous ne pouvons pas pigne la vm2 car elle n'a pas de Gateway
 
-![alt text](/TP3/image/ping_vm2_1.png)
-![alt text](/TP3/image/ping_vm2_3.png)
+![alt text](/TP3/image/ping_vm2_1.PNG)
+![alt text](/TP3/image/ping_vm2_3.PNG)
 
 **II- Manipulation simple de routeurs**
 
